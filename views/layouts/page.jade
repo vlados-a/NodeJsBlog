@@ -3,14 +3,15 @@ html(lang="en")
 head
 	meta(charset="UTF-8")
 	block title
-	link(rel="stylesheet", href="css/main.css")
-	link(rel="stylesheet", href="css/styles/bootstrap.min.css")
-	link(rel="stylesheet", href="css/styles/font-awesome.min.css")
+	link(rel="stylesheet", href="styles/css/main.css")
+	link(rel="stylesheet", href="styles/css/libs.css")
 	script(src="javascripts/vendor.js")
 	script(src='javascripts/main.js')
 body
-	div.header 
-		h1 hello
-	div.container 
-		block content
+	include ../partials/header.jade
+	div.container
+		div.row
+			div.col-md-8 
+				block content
+			div.col-md-4
 	
