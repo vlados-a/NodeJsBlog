@@ -23,6 +23,7 @@
   ],
   "dependencies":{
     "jQuery": "",
-    "bootstrap": ""
+    "bootstrap": "",
+    "font-awesome":""
   }
 }

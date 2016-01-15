@@ -21,6 +21,9 @@
     "grunt-contrib-nodeunit": "",
     "grunt-contrib-uglify": "",
     "grunt-browserify":"",
-    "grunt-contrib-sass":""
+    "grunt-contrib-sass":"",
+    "grunt-contrib-cssmin":"",
+    "grunt-contrib-copy":"",
+    "grunt-contrib-concat":""
   }
 }

@@ -1,5 +1,6 @@
 module.exports = function(grunt){
-	var javascriptsMainFile = 'public/javascripts/main.js';
+	var javascriptsMainFile = 'public/javascripts/main.js',
+		cssMainFile = 'public/css/main.css';
 	grunt.initConfig({
 		uglify: {
 			build:{
@@ -14,20 +15,76 @@ module.exports = function(grunt){
 				}
 			}
 		},
-
 		sass:{
 			dist:{
 				files:{
-					'public/css/main.css' : 'src/sass/main.sass'
+					cssMainFile : 'src/sass/main.sass'
 				}
 			}
+		},
+		cssmin:{
+			target:{
+				files:{
+					'public/css/main.css': cssMainFile
+				}
+			}
+		},
+		concat:{
+			scripts:{
+				src: [
+					'bower_components/jQuery/dist/jquery.min.js',
+					'bower_components/bootstrap/dist/js/bootstrap.min.js'
+				],
+				dest: 'public/javascripts/vendor.js'
+			},
+			styles:{
+				src: ['bower_components/bootstrap/dist/css/bootstrap.min.css','bower_components/font-awesome/font-awesome.min.css'],	
+				dest: 'public/css/libs.css'
+			}
+		},
+		copy:{
+			bootstrapFonts:{
+				src: 'bower_components/bootstrap/dist/fonts/*',
+				dest: 'public/css/fonts/',
+				expand: true,
+				flatten: true
+			},
+			fontAwesomeFonts:{
+				src: 'bower_components/font-awesome/fonts/*',
+				dest: 'public/css/fonts/',
+				expand: true,
+				flatten: true				
+			},
+			bootstrap:{
+				src: 'bower_components/bootstrap/dist/css/bootstrap.min.css',
+				dest: 'public/css/styles/',
+				expand: true,
+				flatten: true
+			},
+			fontAwesome:{
+				src:'bower_components/font-awesome/css/font-awesome.min.css',
+				dest: 'public/css/styles/',
+				expand: true,
+				flatten: true
+			}
+
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.registerTask('js', ['browserify', 'uglify']);
-	grunt.registerTask('css', ['sass']);
+	grunt.registerTask('css', ['sass', 'cssmin']);
+	grunt.registerTask('libs', ['concat:scripts',
+						 		 'copy:bootstrapFonts',
+						 		 'copy:fontAwesomeFonts',
+						 		 'copy:bootstrap',
+						 		 'copy:fontAwesome'
+					 		  ]);
+	grunt.registerTask('default', ['js','css','libs']);
 }
