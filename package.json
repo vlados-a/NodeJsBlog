@@ -15,6 +15,12 @@
     "node-sass-middleware": "0.8.0",
     "serve-favicon": "~2.3.0",
     "nconf":"",
-    "jade":""
+    "jade":"",
+    "grunt": "",
+    "grunt-contrib-jshint": "",
+    "grunt-contrib-nodeunit": "",
+    "grunt-contrib-uglify": "",
+    "grunt-browserify":"",
+    "grunt-contrib-sass":""
   }
 }
