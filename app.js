@@ -42,12 +42,16 @@ app.use(function(req, res, next) {
 
 // error handlers
 
+//custom errorHandler
+//handles 403,404,500 errors
+app.use(require('./libs/errorHandler'));
+
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.render('errors/default', {
       message: err.message,
       error: err
     });
@@ -58,7 +62,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.render('errors/default', {
     message: err.message,
     error: {}
   });
