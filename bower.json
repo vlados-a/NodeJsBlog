@@ -1,0 +1,28 @@
+{
+  "name": "blog",
+  "description": "my first nodejs application",
+  "main": "app.js",
+  "authors": [
+    "vlados-a <azarkovlad@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "nodejs"
+  ],
+  "homepage": "https://github.com/vlados-a/NodeJsBlog",
+  "moduleType": [
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies":{
+    "jQuery": "",
+    "bootstrap": ""
+  }
+}
