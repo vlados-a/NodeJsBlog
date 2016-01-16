@@ -1,3 +1,7 @@
-var heh = require('./heh');
+var signOut = require('./signOut');
 
-heh.heh();
+(function($){
+	$(document).ready(function(){
+		signOut('#signOutButton');
+	});
+})(jQuery);
