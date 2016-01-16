@@ -19,19 +19,19 @@ nav.navbar.navbar-inverse
 					li Hello
 						span=user.username
 					li
-						a(href="/account")
+						a(href="users/account")
 							i.fa.fa-user
 							span My Account
 					li
-						a(href="/logout")
+						a(href="#" id="logoutButton")
 							i.fa.fa-sign-in
 							span Sign Out
 				else
 					li
-						a(href="/login")
+						a(href="users/login")
 							i.fa.fa-sign-in
 							span Sign In
 					li
-						a(href="/registration")
+						a(href="users/registration")
 							i.fa.fa-user-plus
 							span Sign Up
