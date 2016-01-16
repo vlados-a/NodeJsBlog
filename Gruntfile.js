@@ -40,7 +40,9 @@ module.exports = function(grunt){
 			styles:{
 				src: [
 					'bower_components/bootstrap/dist/css/bootstrap.min.css',
-					'bower_components/font-awesome/css/font-awesome.min.css'],	
+					'bower_components/font-awesome/css/font-awesome.min.css',
+					'bower_components/bootstrap-social/bootstrap-social.css'
+					],	
 				dest: 'public/styles/css/libs.css'
 			}
 		},

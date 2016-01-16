@@ -24,6 +24,7 @@
   "dependencies":{
     "jquery": "",
     "bootstrap": "",
-    "font-awesome":""
+    "font-awesome":"",
+    "bootstrap-social":""
   }
 }

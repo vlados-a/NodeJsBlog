@@ -1,0 +1,28 @@
+extends ../layouts/page.jade
+
+block title
+	title Sign Up
+block content
+	div.panel.panel-primary.userpanel(id = "signUpBlock")
+		div.panel-heading 
+			h1 Enter username and password
+		div.panel-body
+			div.container
+				div.row
+					div.col-sm-6.col-sm-offset-3
+						form.form-horizontal
+							div.form-group
+								label.col-sm-4.control-label.input-lg(for="nameInput") Username
+								div.col-sm-8
+									input.form-control.input-lg(type="text" id="nameInput" placeholder="Username")
+							div.form-group
+								label.col-sm-4.control-label.input-lg(for="passwordInput") Password
+								div.col-sm-8
+									input.form-control.input-lg(type="password" id="passwordInput" placeholder="Password")
+							div.form-group
+								label.col-sm-4.control-label.input-lg(for="passwordInput") Confirm Password
+								div.col-sm-8
+									input.form-control.input-lg(type="password" id="passwordInput" placeholder="Password")
+							div.form-group
+								div.col-sm-offset-4.col-sm-8
+									button.btn.btn-primary.btn-lg(type = "submit") Sign Up

@@ -1,10 +1,10 @@
 extends ../layouts/page.jade
 
 block title
-	title login
+	title Sign In
 
 block content
-	div.panel.panel-primary(id = "signInBlock")
+	div.panel.panel-primary.userpanel(id = "signInBlock")
 		div.panel-heading 
 			h1 Enter your login and password
 		div.panel-body
@@ -23,3 +23,15 @@ block content
 							div.form-group
 								div.col-sm-offset-4.col-sm-8
 									button.btn.btn-primary.btn-lg(type = "submit") Sign In
+				div.row
+					div.col-sm-2.col-sm-offset-5
+						div.btn-group-vertical
+							button.btn-facebook.btn-social.btn.btn-block
+								span.fa.fa-facebook
+								span Sign In with Facebook
+							button.btn-twitter.btn-social.btn.btn-block
+								span.fa.fa-twitter
+								span Sign In with Twitter
+							button.btn-vk.btn-social.btn.btn-block
+								span.fa.fa-vk
+								span Sign In with VK
