@@ -29,6 +29,12 @@
     "crypto":"",
     "async":"",
     "express-session":"",
-    "connect-mongo":""
+    "connect-mongo":"",
+    "passport":"",
+    "passport-facebook":"",
+    "passport-twitter":"",
+    "passport-vkontakte":"",
+    "passport-local":"",
+    "passport-local-mongoose":""
   }
 }

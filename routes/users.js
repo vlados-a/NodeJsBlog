@@ -3,7 +3,8 @@ var router = express.Router();
 
 var HttpError = require('../libs/errors').HttpError,
     SignUpError = require('../models/user').SignUpError,
-    User = require('../models/user').User;
+    User = require('../models/user').User,
+    passport = require('../libs/passport');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -21,20 +22,22 @@ router.get('/signup', function(req, res, next){
 router.post('/signup',function(req, res, next){
   var username = req.body.username,
       password = req.body.password;
-  User.SignUp(username, password, function(err,user){
-    if(err){
-      if(err instanceof SignUpError) next(new HttpError(401,"User with such name already exists"));
-      return next(err);
-    }
-    console.log('success');
-    req.session.user = user._id;
-    res.redirect("/");
-  })
+  User.register(new User({ username : req.body.username }), req.body.password, function(err, account) {
+        if (err) {
+            return res.render('user/signUp');
+        }
+
+        passport.authenticate('local')(req, res, function () {
+          req.user ? console.log('ok') : console.log('fail');
+          res.redirect('/');
+        });
+    });
+
 });
 
 router.post('/signout',function(req,res,next){
-	req.session.destroy();
-  res.redirect("/users/signin");
+	// req.session.destroy();
+  // res.redirect("/users/signin");
 });
 
 module.exports = router;

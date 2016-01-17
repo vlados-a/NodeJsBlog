@@ -11,7 +11,8 @@ var users = require('./routes/users');
 var config = require('./config'),
     sessionLib = require('./libs/sessionStorage'),
     session = sessionLib.session,
-    sessionStore = sessionLib.sessionStore;
+    sessionStore = sessionLib.sessionStore,
+    passport = require('./libs/passport');
 
 var app = express();
 
@@ -41,8 +42,11 @@ app.use(session({
   store: sessionStore
 }));
 
-app.use(require('./middleware/loadUser'));
 
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(require('./middleware/loadUser'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users',express.static(path.join(__dirname, 'public')));
 
