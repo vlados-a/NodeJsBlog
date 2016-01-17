@@ -19,6 +19,12 @@ router.get('/signup', function(req, res, next){
 	res.render("user/signUp");
 })
 
+router.post('/signin',  passport.authenticate('local'), function(req, res) {
+  console.log(req.body.username);
+  console.log(req.body.password);
+  res.redirect('/');
+});
+
 router.post('/signup',function(req, res, next){
   var username = req.body.username,
       password = req.body.password;
@@ -36,8 +42,8 @@ router.post('/signup',function(req, res, next){
 });
 
 router.post('/signout',function(req,res,next){
-	// req.session.destroy();
-  // res.redirect("/users/signin");
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = router;
