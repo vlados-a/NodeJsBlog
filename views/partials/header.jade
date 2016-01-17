@@ -5,19 +5,20 @@ nav.navbar.navbar-inverse
 				span.icon-bar
 				span.icon-bar
 				span.icon-bar
-			a.navbar-brand(href="/index") My Blog
+			a.navbar-brand(href="/") My Blog
 		div.navbar-collapse.collapse(id = "navbar")
 			ul.nav.navbar-nav
 				li
 					a(href="/articles") Articles
 				li
 					a(href="/users")
-						i.fa.fa-users 
+						i.fa.fa-users
 						span Users
 			ul.nav.navbar-nav.navbar-right
 				if user
-					li Hello
-						span=user.username
+					li
+						a.disabled Hello &nbsp;
+							span=user.username
 					li
 						a(href="/users/account")
 							i.fa.fa-user

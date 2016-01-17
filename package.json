@@ -24,6 +24,11 @@
     "grunt-contrib-sass":"",
     "grunt-contrib-cssmin":"",
     "grunt-contrib-copy":"",
-    "grunt-contrib-concat":""
+    "grunt-contrib-concat":"",
+    "mongoose":"",
+    "crypto":"",
+    "async":"",
+    "express-session":"",
+    "connect-mongo":""
   }
 }

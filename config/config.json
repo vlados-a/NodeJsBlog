@@ -1,3 +1,22 @@
 {
-	"port": 3000
+	"port": 5000,
+	"session": {
+		"secret": "vlados",
+		"key": "sid",
+		"cookie":{
+			"path":"/",
+			"httponly":true,
+			"maxAge":null
+		}
+	},
+	"mongoose": {
+		"uri": "mongodb://localhost/blog",
+		"options": {
+			"server": {
+				"socketoptions":{
+					"keepAlive": 1
+				}
+			}
+		}
+	}
 }

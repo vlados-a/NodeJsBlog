@@ -8,7 +8,10 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var config = require('./config');
+var config = require('./config'),
+    sessionLib = require('./libs/sessionStorage'),
+    session = sessionLib.session,
+    sessionStore = sessionLib.sessionStore;
 
 var app = express();
 
@@ -28,6 +31,17 @@ app.use(require('node-sass-middleware')({
   indentedSyntax: true,
   sourceMap: true
 }));
+
+app.use(session({
+  secret: config.get('session:secret'),
+  key: config.get('session:key'),
+  cookie: config.get('session:cookie'),
+  saveUninitialized: false,
+  resave: false,
+  store: sessionStore
+}));
+
+app.use(require('./middleware/loadUser'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users',express.static(path.join(__dirname, 'public')));

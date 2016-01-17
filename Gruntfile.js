@@ -32,7 +32,7 @@ module.exports = function(grunt){
 		concat:{
 			scripts:{
 				src: [
-					'bower_components/jQuery/dist/jquery.min.js',
+					'bower_components/jquery/dist/jquery.min.js',
 					'bower_components/bootstrap/dist/js/bootstrap.min.js'
 				],
 				dest: 'public/javascripts/vendor.js'
@@ -42,7 +42,7 @@ module.exports = function(grunt){
 					'bower_components/bootstrap/dist/css/bootstrap.min.css',
 					'bower_components/font-awesome/css/font-awesome.min.css',
 					'bower_components/bootstrap-social/bootstrap-social.css'
-					],	
+					],
 				dest: 'public/styles/css/libs.css'
 			}
 		},
@@ -57,7 +57,7 @@ module.exports = function(grunt){
 				src: 'bower_components/font-awesome/fonts/*',
 				dest: 'public/styles/fonts/',
 				expand: true,
-				flatten: true				
+				flatten: true
 			},
 			bootstrap:{
 				src: 'bower_components/bootstrap/dist/css/bootstrap.min.css',
