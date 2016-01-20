@@ -29,9 +29,9 @@ passport.use(new VkontakteStrategy(
 		callbackURL: config.get('social:vk:callbackURL')
 	}, 
 	function(accessToken, refreashToken, profile, done){
-		process.nextTick(function(){
-			return done(null, profile);
-		});
+    	User.create({ username: profile.displayName }, function (err, user) {
+      		return done(err, user);
+    	});
 	}));
 
 module.exports = passport;

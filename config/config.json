@@ -23,12 +23,12 @@
 		"facebook":{
 			"clientId": "154334694941927",
 			"clientSecret": "778cfed5e972079a5f072201264583bc",
-			"callbackURL": "http://127.0.0.1:1337/auth/facebook/callback"
+			"callbackURL": "http://127.0.0.1:5000/auth/facebook/callback"
 		},
 		"vk":{
 			"clientId":"5233315",
 			"clientSecret":"Va2ZcFGZFbVtbSbd4fOF",
-			"callbackURL":"http://127.0.0.1:1337/auth/vk/callback"
+			"callbackURL":"http://127.0.0.1:5000/auth/vk/callback"
 		}
 	}
 }
