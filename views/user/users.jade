@@ -1,0 +1,17 @@
+extends ../layouts/page.jade
+
+block title
+    title Sign Up
+block content
+    div.container
+        div.row
+            div.col-sm-6
+                div.list-group
+                    each item in users
+                        div.list-group-item
+                            h1=item.username
+                            if( item.lastname &&  item.firstname)
+                                p='Name: ' + item.firstname + ' ' +item.lastname
+                            if(item.birthdate)
+                                p='Birthdate:' + item.birthdate
+                    

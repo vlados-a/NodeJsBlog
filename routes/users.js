@@ -8,7 +8,11 @@ var HttpError = require('../libs/errors').HttpError,
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  User.find({},function(err, users){
+      if(err) return next(err);
+
+      res.render("user/users", {users: users});
+  });
 });
 
 router.get('/signin', function(req,res,next){
