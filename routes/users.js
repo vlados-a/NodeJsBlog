@@ -12,11 +12,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/signin', function(req,res,next){
-	res.render("user/signIn");
+    res.render("user/signIn");
 });
 
 router.get('/signup', function(req, res, next){
-	res.render("user/signUp");
+    res.render("user/signUp");
 })
 
 router.post('/signin',  passport.authenticate('local'), function(req, res) {
@@ -42,6 +42,38 @@ router.post('/signup',function(req, res, next){
 router.post('/signout',function(req,res,next){
   req.logout();
   res.redirect('/');
+});
+
+router.get('/account',function(req,res,next){
+    if(!req.user) return next(new HttpError(403));
+    User.findOne({username: req.user.username}, function(err,user){
+        if(err) return next(err);
+        var userInfo = {};
+        userInfo.firstname = (user.firstname) ? user.firstname : '';
+        userInfo.lastname = (user.lastname) ? user.lastname : '';
+        userInfo.birthdate = (user.birthdate) ? user.birthdate: new Date(1995,9,19);
+        console.log(userInfo);
+        function Convert(date){
+            var yyyy = date.getFullYear().toString();
+            var mm = (date.getMonth()).toString();
+            var dd  = date.getDate().toString();
+            return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]); // padding
+        }
+        userInfo.birthdate = Convert(userInfo.birthdate);
+        console.log(userInfo.birthdate);
+        res.render("user/account",{userInfo: userInfo});
+    });
+});
+
+router.post('/account', function(req,res,next){
+    if(!req.user) return next(new HttpError(403));
+    var birthdate = new Date(req.body.birthdate);
+    birthdate.setMonth(birthdate.getMonth() + 1);
+    User.update({username: req.user.username}, {firstname: req.body.firstname, lastname: req.body.lastname, birthdate: birthdate}, function(err, user){
+        if(err) return next(err);
+        console.log(user);
+        res.render("index");
+    });
 });
 
 module.exports = router;

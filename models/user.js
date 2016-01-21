@@ -31,7 +31,11 @@ AuthError.prototype.name = 'SignUpError';
 
 var Schema = mongoose.Schema;
 
-var schema = new Schema({});
+var schema = new Schema({
+    firstname: String,
+    lastname: String,
+    birthdate: Date
+});
 schema.plugin(passportLocalMongoose);
 schema.plugin(findOrCreate);
 // schema.statics.findOrCreate = function(selector, callback){
