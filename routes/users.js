@@ -20,8 +20,6 @@ router.get('/signup', function(req, res, next){
 })
 
 router.post('/signin',  passport.authenticate('local'), function(req, res) {
-  console.log(req.body.username);
-  console.log(req.body.password);
   res.redirect('/');
 });
 

@@ -26,6 +26,7 @@
     "grunt-contrib-copy":"",
     "grunt-contrib-concat":"",
     "mongoose":"",
+    "mongoose-findorcreate":"",
     "crypto":"",
     "async":"",
     "express-session":"",
