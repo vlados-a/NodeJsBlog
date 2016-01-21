@@ -10,7 +10,6 @@ var HttpError = require('../libs/errors').HttpError,
 router.get('/', function(req, res, next) {
   User.find({},function(err, users){
       if(err) return next(err);
-
       res.render("user/users", {users: users});
   });
 });
@@ -73,11 +72,23 @@ router.post('/account', function(req,res,next){
     if(!req.user) return next(new HttpError(403));
     var birthdate = new Date(req.body.birthdate);
     birthdate.setMonth(birthdate.getMonth() + 1);
-    User.update({username: req.user.username}, {firstname: req.body.firstname, lastname: req.body.lastname, birthdate: birthdate}, function(err, user){
+    var updates = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        birthdate: birthdate
+    };
+    User.update({username: req.user.username}, updates, function(err, user){
         if(err) return next(err);
         console.log(user);
         res.render("index");
     });
 });
 
+router.post('/delete',function(req,res,next){
+    User.remove({username: req.user.username}, function(err, removed){
+        if(err) return next(err);
+        req.user = null;
+        res.redirect('/users/signin');
+    });
+});
 module.exports = router;
