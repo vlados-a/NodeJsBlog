@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 var Article = new Schema({
     creator: {
-        type: 'ObjectId',
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
     title: {
@@ -22,14 +22,14 @@ var Article = new Schema({
             max: 5
         },
         fan:{
-            type: 'ObjectId',
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         }
     }],
     comments:[{
         text: String,
         creator:{
-            type: 'ObjectId',
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         }
     }]

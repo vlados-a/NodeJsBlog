@@ -55,7 +55,6 @@ router.get('/account',function(req,res,next){
         userInfo.firstname = (user.firstname) ? user.firstname : '';
         userInfo.lastname = (user.lastname) ? user.lastname : '';
         userInfo.birthdate = (user.birthdate) ? user.birthdate: new Date(1995,9,19);
-        console.log(userInfo);
         function Convert(date){
             var yyyy = date.getFullYear().toString();
             var mm = (date.getMonth()).toString();
@@ -63,7 +62,6 @@ router.get('/account',function(req,res,next){
             return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]); // padding
         }
         userInfo.birthdate = Convert(userInfo.birthdate);
-        console.log(userInfo.birthdate);
         res.render("user/account",{userInfo: userInfo});
     });
 });
@@ -79,7 +77,6 @@ router.post('/account', function(req,res,next){
     };
     User.update({username: req.user.username}, updates, function(err, user){
         if(err) return next(err);
-        console.log(user);
         res.render("index");
     });
 });
