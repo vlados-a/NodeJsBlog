@@ -7,13 +7,15 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var oauth = require('./routes/auth');
+var auth = require('./routes/auth');
+var articles = require('./routes/articles');
 
 var config = require('./config'),
     sessionLib = require('./libs/sessionStorage'),
     session = sessionLib.session,
     sessionStore = sessionLib.sessionStore,
-    passport = require('./libs/passport');
+    passport = require('./libs/passport'),
+    HttpError = require('./libs/errors').HttpError;
 
 var app = express();
 
@@ -49,11 +51,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('./middleware/loadUser'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/users',express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/auth', oauth);
+app.use('/auth', auth);
+app.use('/articles', articles);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

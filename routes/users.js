@@ -3,7 +3,7 @@ var router = express.Router();
 
 var HttpError = require('../libs/errors').HttpError,
     SignUpError = require('../models/user').SignUpError,
-    User = require('../models/user').User,
+    User = require('../models/user'),
     passport = require('../libs/passport');
 
 /* GET users listing. */
