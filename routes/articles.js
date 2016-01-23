@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Article = require('../models/article'),
+    HttpError = require('../libs/errors').HttpError,
     async = require('async');
 
 router.get('/',function(req,res,next){
@@ -34,6 +35,19 @@ router.post('/',function(req,res,next){
             });
         }
 
+    });
+});
+
+router.get('/my',function(req,res,next){
+    if(!req.user) return next(new HttpError(403));
+
+    Article.find({
+        creator: req.user._id
+    }, function(err, articles){
+        res.render("articles", {
+            articles: articles,
+            authorRequest: true
+        });
     });
 });
 

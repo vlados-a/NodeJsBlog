@@ -1,38 +1,38 @@
 nav.navbar.navbar-inverse
-	div.container
-		div.navbar-header
-			button.navbar-toggle.collapsed(data-toggle="collapse" data-target="#navbar")
-				span.icon-bar
-				span.icon-bar
-				span.icon-bar
-			a.navbar-brand(href="/") My Blog
-		div.navbar-collapse.collapse(id = "navbar")
-			ul.nav.navbar-nav
-				li
-					a(href="/articles") Articles
-				li
-					a(href="/users")
-						i.fa.fa-users
-						span Users
-			ul.nav.navbar-nav.navbar-right
-				if user
-					li
-						a.disabled Hello &nbsp;
-							span=user.username
-					li
-						a(href="/users/account")
-							i.fa.fa-user
-							span My Account
-					li
-						a(id="signOutButton")
-							i.fa.fa-sign-in
-							span Sign Out
-				else
-					li
-						a(href="/users/signin")
-							i.fa.fa-sign-in
-							span Sign In
-					li
-						a(href="/users/signup")
-							i.fa.fa-user-plus
-							span Sign Up
+    div.container
+        div.navbar-header
+            button.navbar-toggle.collapsed(data-toggle="collapse" data-target="#navbar")
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+            a.navbar-brand(href="/") My Blog
+        div.navbar-collapse.collapse(id = "navbar")
+            ul.nav.navbar-nav
+                li
+                    a(href="/articles") Articles
+                li
+                    a(href="/users")
+                        i.fa.fa-users
+                        span Users
+            ul.nav.navbar-nav.navbar-right
+                if user
+                    li
+                        a.disabled Hello &nbsp;
+                            span=user.username
+                    li
+                        a(href="/users/account")
+                            i.fa.fa-user
+                            span My Account
+                    li
+                        a(id="signOutButton")
+                            i.fa.fa-sign-in
+                            span Sign Out
+                else
+                    li
+                        a(href="/users/signin")
+                            i.fa.fa-sign-in
+                            span Sign In
+                    li
+                        a(href="/users/signup")
+                            i.fa.fa-user-plus
+                            span Sign Up
