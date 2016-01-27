@@ -16,7 +16,7 @@ block content
                         each item in articles
                             div.list-group-item
                                 h1
-                                    a(href="#")=item.title
+                                    a(href="/articles?title=" + item.title)=item.title
                                 if( item.content)
                                     if(item.content.length > 100)
                                         p=item.content.substring(1, 80)
@@ -25,7 +25,7 @@ block content
                                         p=item.content
                                 if(authorRequest)
                                     p
-                                        a.btn.btn-primary(href = "/articles/edit/" + item.title) Edit
+                                        a.btn.btn-primary(href = "/articles/edit?title=" + item.title) Edit
                 else
                     p Nothing found
             div.col-sm-4(id = "searchArticles")

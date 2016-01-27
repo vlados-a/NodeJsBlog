@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var Article = require('../models/article'),
     HttpError = require('../libs/errors').HttpError,
-    async = require('async');
+    async = require('async'),
+    url = require('url');
 
 router.get('/',function(req,res,next){
+
     Article.find({}, function(err, articles){
         if(err) return next(err);
         res.render("articles/articles",{
@@ -15,7 +17,6 @@ router.get('/',function(req,res,next){
 router.post('/',function(req,res,next){
     var query = {};
     if(req.body.title !== '') query.title = req.body.title;
-    console.log('Send query: %j', query);
     Article.find(query).populate('creator')
     .exec(function(err, articles){
         console.log('receive some results');
@@ -73,7 +74,6 @@ router.get('/create', function(req, res, next){
     if(!req.user) return next(new HttpError(403));
     res.render('articles/article');
 });
-
 router.post('/create', function(req, res, next){
     if(!req.user) return next(new HttpError(403));
 
@@ -84,6 +84,34 @@ router.post('/create', function(req, res, next){
     },function(err, article){
         if(err) return next(err);
 
+        res.redirect('/articles/my');
+    });
+});
+
+router.get('/edit', function(req,res,next){
+    if(!req.user) return next(new httpError(403));
+
+    var query = url.parse(req.url, true).query;
+    Article.findOne({title: query.title}, function(err, article){
+        if(err) return next(err);
+        if(!article) return next(new HttpError(404));
+
+        res.render('articles/article',{
+            article: article
+        });
+    });
+});
+router.post('/edit', function(req, res, next){
+    if(!req.user) return next(new HttpError(403));
+    var query = url.parse(req.url, true).query;
+    Article.findOne({title: query.title}, function(err, article){
+        console.log(article.creator.toString());
+        console.log(req.user._id.toString());
+        if(article.creator.toString() != req.user._id.toString()) return next(new HttpError(403));
+
+        article.title = req.body.title;
+        article.content = req.body.content;
+        article.save();
         res.redirect('/articles/my');
     });
 });
