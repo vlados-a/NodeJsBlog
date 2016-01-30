@@ -135,27 +135,34 @@ router.get('/delete', function(req, res, next){
         if(article.creator.toString() != req.user._id.toString()) return next(new HttpError(403));
         article.remove();
         res.redirect('/articles/my');
-    });    
+    });
 })
 router.post('/rate', function(req, res, next){
     if(!req.user){
         if(req.xhr) return res.status(403).send({});
         return next(new HttpError(403));
-    } 
-    console.log(req.body);
+    }
     Article.findOne({title: req.body.title}, function(err, article){
         if(err){
             if(req.xhr) return res.status(500).send({});
             return next(new HttpError(500));
-        } 
+        }
         if(! article){
             if(req.xhr) return res.status(404).send({});
             return next(new HttpError(404));
         }
-        if(article.creator.toString() === req.user._id.toString()){
+        console.log(article);
+        if(article.creator && (article.creator.toString() === req.user._id.toString())){
             res.status(403).send({});
         }
         else{
+            for(var i = 0, l = article.fans.length; i < l; i++){
+                if(req.body.rating == article.fans[i].fan){
+                    article.fans[i].star = req.body.rating;
+                    article.save();
+                    return res.send({});
+                }
+            }
             article.fans.push({
                 star: req.body.rating,
                 fan: req.user._id
@@ -163,6 +170,6 @@ router.post('/rate', function(req, res, next){
             article.save();
             res.status(200).send({});
         }
-    }); 
+    });
 });
 module.exports = router;
