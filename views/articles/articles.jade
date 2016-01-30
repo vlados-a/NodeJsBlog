@@ -26,6 +26,9 @@ block content
                                 if(authorRequest)
                                     p
                                         a.btn.btn-primary(href = "/articles/edit?title=" + item.title) Edit
+                                else
+                                    p
+                                        a.btn.btn-primary(href= "/articles/?title=" + item.title) Show
                 else
                     p Nothing found
             div.col-sm-4(id = "searchArticles")

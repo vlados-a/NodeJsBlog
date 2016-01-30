@@ -10,7 +10,7 @@ router.get('/',function(req,res,next){
     if(query.title){
         Article.findOne({title: query.title}, function(err, article){
             if(err) return next(err);
-            res.render('articles/article', {
+            res.render('articles/fullArticle', {
                 article: article
             });
         });

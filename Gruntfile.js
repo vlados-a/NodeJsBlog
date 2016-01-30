@@ -33,7 +33,8 @@ module.exports = function(grunt){
 			scripts:{
 				src: [
 					'bower_components/jquery/dist/jquery.min.js',
-					'bower_components/bootstrap/dist/js/bootstrap.min.js'
+					'bower_components/bootstrap/dist/js/bootstrap.min.js',
+					'bower_components/jquery-bar-rating/dist/jquery.barrating.min.js'
 				],
 				dest: 'public/javascripts/vendor.js'
 			},
@@ -41,7 +42,8 @@ module.exports = function(grunt){
 				src: [
 					'bower_components/bootstrap/dist/css/bootstrap.min.css',
 					'bower_components/font-awesome/css/font-awesome.min.css',
-					'bower_components/bootstrap-social/bootstrap-social.css'
+					'bower_components/bootstrap-social/bootstrap-social.css',
+					'bower_components/jquery-bar-rating/dist/themes/fontawesome-stars.css'
 					],
 				dest: 'public/styles/css/libs.css'
 			}

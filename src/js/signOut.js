@@ -1,6 +1,8 @@
-function SignOut(signOutButton){
-	jQuery(signOutButton).click(function(){
-		jQuery('<form method= "POST" action="/users/signout"></form>').submit();
+function SignOut(signOutButton, $){
+    if(! $) $ = jQuery;
+    if(! $) return false;
+	$(signOutButton).click(function(){
+		$('<form method= "POST" action="/users/signout"></form>').submit();
 	});
 }
 
