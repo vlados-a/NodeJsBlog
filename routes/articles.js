@@ -137,4 +137,32 @@ router.get('/delete', function(req, res, next){
         res.redirect('/articles/my');
     });    
 })
+router.post('/rate', function(req, res, next){
+    if(!req.user){
+        if(req.xhr) return res.status(403).send({});
+        return next(new HttpError(403));
+    } 
+    console.log(req.body);
+    Article.findOne({title: req.body.title}, function(err, article){
+        if(err){
+            if(req.xhr) return res.status(500).send({});
+            return next(new HttpError(500));
+        } 
+        if(! article){
+            if(req.xhr) return res.status(404).send({});
+            return next(new HttpError(404));
+        }
+        if(article.creator.toString() === req.user._id.toString()){
+            res.status(403).send({});
+        }
+        else{
+            article.fans.push({
+                star: req.body.rating,
+                fan: req.user._id
+            });
+            article.save();
+            res.status(200).send({});
+        }
+    }); 
+});
 module.exports = router;

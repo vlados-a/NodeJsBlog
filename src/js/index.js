@@ -6,6 +6,6 @@ var signOut = require('./signOut'),
 	$(document).ready(function(){
 		signOut('#signOutButton');
 		signUp('#signUpForm');
-        rating('#rating');
+        rating('#rating', $('#articleTitle').text());
 	});
 })(jQuery);

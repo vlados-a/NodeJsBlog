@@ -25,6 +25,7 @@
     "jquery": "",
     "bootstrap": "",
     "font-awesome":"",
-    "bootstrap-social":""
+    "bootstrap-social":"",
+    "jquery-bar-rating":""
   }
 }
