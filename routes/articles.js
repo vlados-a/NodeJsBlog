@@ -119,8 +119,6 @@ router.post('/edit', function(req, res, next){
     if(!req.user) return next(new HttpError(403));
     var query = url.parse(req.url, true).query;
     Article.findOne({title: query.title}, function(err, article){
-        console.log(article.creator.toString());
-        console.log(req.user._id.toString());
         if(article.creator.toString() != req.user._id.toString()) return next(new HttpError(403));
 
         article.title = req.body.title.trim();
@@ -129,4 +127,14 @@ router.post('/edit', function(req, res, next){
         res.redirect('/articles/my');
     });
 });
+
+router.get('/delete', function(req, res, next){
+    if(!req.user) return next(new HttpError(403));
+    var query = url.parse(req.url, true).query;
+    Article.findOne({title: query.title}, function(err, article){
+        if(article.creator.toString() != req.user._id.toString()) return next(new HttpError(403));
+        article.remove();
+        res.redirect('/articles/my');
+    });    
+})
 module.exports = router;
