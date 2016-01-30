@@ -6,13 +6,24 @@ var Article = require('../models/article'),
     url = require('url');
 
 router.get('/',function(req,res,next){
-
-    Article.find({}, function(err, articles){
+    var query = url.parse(req.url, true).query;
+    if(query.title){
+        Article.findOne({title: query.title}, function(err, article){
+            if(err) return next(err);
+            res.render('articles/article', {
+                article: article
+            });
+        });
+    }
+    else{
+        Article.find({}, function(err, articles){
         if(err) return next(err);
         res.render("articles/articles",{
             articles: articles
         });
     })
+    }
+
 });
 router.post('/',function(req,res,next){
     var query = {};
@@ -59,7 +70,7 @@ router.post('/my',function(req,res,next){
     if(req.body.title === '') res.redirect('/my');
     else{
         Article.find({
-            title: req.body.title,
+            title: req.body.title.trim(),
             creator: req.user._id
         }, function(err, articles){
                 res.render("articles/articles",{
@@ -72,7 +83,9 @@ router.post('/my',function(req,res,next){
 
 router.get('/create', function(req, res, next){
     if(!req.user) return next(new HttpError(403));
-    res.render('articles/article');
+    res.render('articles/article',{
+        authorRequest: true
+    });
 });
 router.post('/create', function(req, res, next){
     if(!req.user) return next(new HttpError(403));
@@ -89,15 +102,16 @@ router.post('/create', function(req, res, next){
 });
 
 router.get('/edit', function(req,res,next){
+    console.log('mda');
     if(!req.user) return next(new httpError(403));
-
     var query = url.parse(req.url, true).query;
     Article.findOne({title: query.title}, function(err, article){
         if(err) return next(err);
         if(!article) return next(new HttpError(404));
 
         res.render('articles/article',{
-            article: article
+            article: article,
+            authorRequest: true
         });
     });
 });
@@ -109,7 +123,7 @@ router.post('/edit', function(req, res, next){
         console.log(req.user._id.toString());
         if(article.creator.toString() != req.user._id.toString()) return next(new HttpError(403));
 
-        article.title = req.body.title;
+        article.title = req.body.title.trim();
         article.content = req.body.content;
         article.save();
         res.redirect('/articles/my');

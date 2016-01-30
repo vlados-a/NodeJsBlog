@@ -1,7 +1,10 @@
 extends ../layouts/page.jade
 
 block title
-    title Create article
+    if(article && article.title)
+        title=article.title
+    else
+        title Create article
 
 block content
         div.panel.panel-primary.userpanel(id = "article")
@@ -25,6 +28,7 @@ block content
                                 textarea.form-control.input-lg( id="contentInput" placeholder="Content" name="content")=article.content
                             else
                                 textarea.form-control.input-lg( id="contentInput" placeholder="Content" name="content")
-                        div.form-group
-                            div.col-sm-offset-4.col-sm-
-                                button.btn.btn-primary.btn-lg(type = "submit") Save
+                        if(authorRequest)
+                            div.form-group
+                                div.col-sm-offset-4.col-sm-
+                                    button.btn.btn-primary.btn-lg(type = "submit") Save
