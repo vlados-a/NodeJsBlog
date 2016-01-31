@@ -1,0 +1,23 @@
+extends ../layouts/page.jade
+
+block title
+    title=user.username
+block content
+    div.panel.panel-primary.userpanel(id = "article")
+        div.panel-heading
+            h1=user.username
+        div.panel-body
+            div.container
+                p Firstname:
+                    span=user.firstname
+                p Lastname:
+                    span=user.lastname
+                p Birthdate:
+                    span=user.birthdate
+                if(user.articles)
+                    ul
+                        each item in user.articles
+                            li
+                                a(href="/articles?title=" + item.title)=item.title
+                else
+                    p This user hasn't got any articles

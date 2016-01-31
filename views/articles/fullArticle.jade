@@ -8,6 +8,10 @@ block content
                 h1(id="articleTitle")=article.title
             div.panel-body
                 div.container
+                    if(article.creator && article.creator.username)
+                        div.author
+                            p Author:
+                                a(href = "/users?username=" + article.creator.username)=article.creator.username
                     div.content
                         p=article.content
                     if(user)

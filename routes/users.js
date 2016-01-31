@@ -4,14 +4,35 @@ var router = express.Router();
 var HttpError = require('../libs/errors').HttpError,
     SignUpError = require('../models/user').SignUpError,
     User = require('../models/user'),
+    Article = require('../models/article'),
+    url = require('url'),
     passport = require('../libs/passport');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  User.find({},function(err, users){
-      if(err) return next(err);
-      res.render("user/users", {users: users});
-  });
+    var query = url.parse(req.url, true).query;
+    if(query.username){
+        User.findOne({username: query.username}, function(err, user){
+            if(err) return next(err);
+            if(! user ) return next(new HttpError(404));
+
+            Article.find({creator: user._id}, function(err, articles){
+                if(err) return next(err);
+
+                user.articles = articles;
+
+                res.render('user/public', {
+                    user: user
+                });
+            });
+        });
+    }
+    else{
+        User.find({},function(err, users){
+          if(err) return next(err);
+          res.render("user/users", {users: users});
+        });    
+    }
 });
 
 router.get('/signin', function(req,res,next){

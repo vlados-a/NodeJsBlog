@@ -8,12 +8,15 @@ var Article = require('../models/article'),
 router.get('/',function(req,res,next){
     var query = url.parse(req.url, true).query;
     if(query.title){
-        Article.findOne({title: query.title}, function(err, article){
-            if(err) return next(err);
-            res.render('articles/fullArticle', {
-                article: article
-            });
-        });
+        Article.findOne({title: query.title})
+                .populate('creator')
+                .exec(function(err, article){
+                    if(err) return next(err);
+                    console.log(article);
+                    res.render('articles/fullArticle', {
+                        article: article
+                    });
+                });
     }
     else{
         Article.find({}, function(err, articles){
