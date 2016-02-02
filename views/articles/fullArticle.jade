@@ -7,20 +7,34 @@ block content
             div.panel-heading
                 h1(id="articleTitle")=article.title
             div.panel-body
-                div.container
-                    if(article.creator && article.creator.username)
-                        div.author
-                            p Author:
-                                a(href = "/users?username=" + article.creator.username)=article.creator.username
-                    div.content
-                        p=article.content
-                    if(user)
-                        div.rating-container
-                            p Your rating:
-                            select( id="rating")
-                              option(value="1") 1
-                              option(value="2") 2
-                              option(value="3") 3
-                              option(value="4") 4
-                              option(value="5") 5
-                    div.comments
+              if(article.creator && article.creator.username)
+                  div.author
+                      p Author:
+                          a(href = "/users?username=" + article.creator.username)=article.creator.username
+              div.content
+                  p=article.content
+              if(user)
+                  div.rating-container
+                      p Your rating:
+                      select( id="rating")
+                        option(value="1") 1
+                        option(value="2") 2
+                        option(value="3") 3
+                        option(value="4") 4
+                        option(value="5") 5
+              div.comments
+                button.btn.btn-primary(data-toggle="collapse" data-target="#commentsBlock" ) Comments
+                  span.badge=article.comments.length
+                div.collapse(id="commentsBlock")
+                  ul.list-group
+                  each comment in article.comments
+                    li.list-group-item
+                      h3=comment.creator.username
+                      p=comment.text
+                  if(user)
+                    form(method='Post')
+                      div.form-group
+                        textarea.form-control(placeholder="Type your comment here")
+                      div.form-group
+                        input.btn.btn-primary(type="submit")
+
