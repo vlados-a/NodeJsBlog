@@ -9,10 +9,10 @@ router.get('/',function(req,res,next){
     var query = url.parse(req.url, true).query;
     if(query.title){
         Article.findOne({title: query.title})
-                .populate('creator')
+                .populate('comments.creator')
                 .exec(function(err, article){
                     if(err) return next(err);
-                    console.log(article);
+                    console.log(article.comments)
                     res.render('articles/fullArticle', {
                         article: article
                     });
@@ -42,7 +42,6 @@ router.post('/',function(req,res,next){
         }
         else{
             var a = [];
-            console.log(articles);
             for(var i = 0, l = articles.length; i < l; i++){
                 if(articles[i].creator && articles[i].creator.username == req.body.author){
                     a.push(articles[i]);
@@ -55,6 +54,26 @@ router.post('/',function(req,res,next){
 
     });
 });
+
+router.post('/addComment', function(req, res, next){
+    if(!req.user) return next(new HttpError(403));
+    var query = url.parse(req.url, true).query;
+    if(query.title){
+        Article.findOne({title: query.title}, function(err, article){
+            if(err) return next(err);
+
+            article.comments.push({
+                text: req.body.commentText,
+                creator: req.user._id
+            });
+            article.save();
+            res.redirect('/articles?title='+query.title);
+        });
+    }
+    else{
+        next(new httpError(404));
+    }
+})
 
 router.get('/my',function(req,res,next){
     if(!req.user) return next(new HttpError(403));
@@ -154,7 +173,6 @@ router.post('/rate', function(req, res, next){
             if(req.xhr) return res.status(404).send({});
             return next(new HttpError(404));
         }
-        console.log(article);
         if(article.creator && (article.creator.toString() === req.user._id.toString())){
             res.status(403).send({});
         }
