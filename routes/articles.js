@@ -3,6 +3,7 @@ var router = express.Router();
 var Article = require('../models/article'),
     HttpError = require('../libs/errors').HttpError,
     async = require('async'),
+    commentsEmmiter = require('../libs/commentsEmmiter'),
     url = require('url');
 
 router.get('/',function(req,res,next){
@@ -12,7 +13,6 @@ router.get('/',function(req,res,next){
                 .populate('comments.creator')
                 .exec(function(err, article){
                     if(err) return next(err);
-                    console.log(article.comments)
                     res.render('articles/fullArticle', {
                         article: article
                     });
@@ -33,7 +33,6 @@ router.post('/',function(req,res,next){
     if(req.body.title !== '') query.title = req.body.title;
     Article.find(query).populate('creator')
     .exec(function(err, articles){
-        console.log('receive some results');
         if(err) return next(err);
         if(req.body.author === ''){
             res.render("articles",{
@@ -59,17 +58,20 @@ router.post('/addComment', function(req, res, next){
     if(!req.user) return next(new HttpError(403));
     var query = url.parse(req.url, true).query;
     if(query.title){
-        Article.findOne({title: query.title}, function(err, article){
-            if(err) return next(err);
-            console.log(req.body.commentText);
-            var comment = {
-                text: req.body.commentText,
-                creator: req.user._id              
-            };
-            article.comments.push(comment);
-            article.save();
-            if(req.xhr) res.status(200).send(comment);
-            else res.redirect('/articles?title='+query.title);
+        Article
+            .findOne({title: query.title})
+            .populate('comments.creator')
+            .exec(function(err, article){
+                if(err) return next(err);
+                var comment = {
+                    text: req.body.commentText,
+                    creator: req.user._id              
+                };
+                article.comments.push(comment);
+                article.save();
+                if(req.xhr) res.status(200).send(comment);
+                else res.redirect('/articles?title='+query.title);
+                commentsEmmiter.emit('comment', comment);
         });
     }
     else{
@@ -127,7 +129,6 @@ router.post('/create', function(req, res, next){
 });
 
 router.get('/edit', function(req,res,next){
-    console.log('mda');
     if(!req.user) return next(new httpError(403));
     var query = url.parse(req.url, true).query;
     Article.findOne({title: query.title}, function(err, article){

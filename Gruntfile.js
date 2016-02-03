@@ -34,7 +34,8 @@ module.exports = function(grunt){
 				src: [
 					'bower_components/jquery/dist/jquery.min.js',
 					'bower_components/bootstrap/dist/js/bootstrap.min.js',
-					'bower_components/jquery-bar-rating/dist/jquery.barrating.min.js'
+					'bower_components/jquery-bar-rating/dist/jquery.barrating.min.js',
+					'bower_components/socket.io-client/socket.io.js'
 				],
 				dest: 'public/javascripts/vendor.js'
 			},

@@ -92,8 +92,12 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(config.get('port'), function(){
-  console.log('Server is listening port %s', config.get('port'));
+var http = require('http').Server(app);
+var server = http.listen(config.get('port'), function(){
+  console.log('Application is listening port %s', config.get('port'));
 });
+
+var io = require('./socket')(server);
+app.set('io', io);
 
 module.exports = app;

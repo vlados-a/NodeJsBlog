@@ -22,7 +22,7 @@ block content
                         option(value="3") 3
                         option(value="4") 4
                         option(value="5") 5
-              div.comments(data-count=article.comments.length id="#commentsContainer")
+              div.comments
                 button.btn.btn-primary(data-toggle="collapse" data-target="#commentsBlock" ) Comments
                   span.badge=article.comments.length
                 div.collapse(id="commentsBlock")

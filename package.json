@@ -36,6 +36,7 @@
     "passport-twitter":"",
     "passport-vkontakte":"",
     "passport-local":"",
-    "passport-local-mongoose":""
+    "passport-local-mongoose":"",
+    "socket.io":""
   }
 }

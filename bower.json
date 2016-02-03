@@ -26,6 +26,7 @@
     "bootstrap": "",
     "font-awesome":"",
     "bootstrap-social":"",
-    "jquery-bar-rating":""
+    "jquery-bar-rating":"",
+    "socket.io-client": ""
   }
 }
