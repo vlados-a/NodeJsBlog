@@ -61,17 +61,20 @@ router.post('/addComment', function(req, res, next){
     if(query.title){
         Article.findOne({title: query.title}, function(err, article){
             if(err) return next(err);
-
-            article.comments.push({
+            console.log(req.body.commentText);
+            var comment = {
                 text: req.body.commentText,
-                creator: req.user._id
-            });
+                creator: req.user._id              
+            };
+            article.comments.push(comment);
             article.save();
-            res.redirect('/articles?title='+query.title);
+            if(req.xhr) res.status(200).send(comment);
+            else res.redirect('/articles?title='+query.title);
         });
     }
     else{
-        next(new httpError(404));
+        if(req.xhr) res.status(500).send({});
+        else next(new httpError(404));
     }
 })
 
