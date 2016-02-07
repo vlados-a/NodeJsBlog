@@ -4,7 +4,8 @@ module.exports = function(commentsContainer, commentsForm, $){
 
     var $container = $(commentsContainer),
         $form = $(commentsForm),
-        commentsCount = $container.data('count');
+        commentsCount = $container.data('count'),
+        socketConnected = false;
 
     if($form && $container){
         var addComment = function(text, author){
@@ -14,22 +15,27 @@ module.exports = function(commentsContainer, commentsForm, $){
             $item.append($creator).append($text);
             console.log($item);
             var list = $container.find('ul.list-group');
-            $container.find('ul.list-group').append($item);            
+            $container.find('ul.list-group').append($item);
         }
         $form.submit(function(e){
             e.preventDefault();
             var $input = $form.find('textarea');
             if($input.val() != ''){
                 $.post($form.attr('action') , {commentText: $input.val()}, function(data){
-                    addComment(data.text, data.creator.username);
+                    if(!socketConnected) addComment(data.text, data.creator.username);
                 });
             }
         });
 
         var socket = io('', {
-        reconnect: true
+            reconnect: true
         });
-
+        sockeet.on('connect', function(){
+            socketConnected = true;
+        });
+        socket.on('error', function(){
+            socketConnected = false;
+        });
         socket.on('comment', function(data){
             console.log('new coment!!');
             addComment(data.text, data.creator.username);

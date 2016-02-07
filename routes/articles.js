@@ -65,7 +65,7 @@ router.post('/addComment', function(req, res, next){
                 if(err) return next(err);
                 var comment = {
                     text: req.body.commentText,
-                    creator: req.user._id              
+                    creator: req.user._id
                 };
                 article.comments.push(comment);
                 article.save();
