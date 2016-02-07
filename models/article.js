@@ -35,4 +35,13 @@ var Article = new Schema({
     }]
 });
 
+Article.methods.getAverageRating = function(){
+    var avRating = 0;
+    this.fans.forEach(function(e,i){
+        avRating += e.star;
+    });
+    avRating /= this.fans.length;
+    return avRating;
+}
+
 module.exports = mongoose.model('Article', Article);

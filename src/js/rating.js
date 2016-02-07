@@ -13,6 +13,9 @@ module.exports = function(selector, title, $){
                 data: {
                     rating: value,
                     title: title
+                },
+                success: function(data){
+                    $('#avRating').html(data.avRating);
                 }
             });
         }

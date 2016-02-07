@@ -14,6 +14,7 @@ router.get('/',function(req,res,next){
                 .populate('comments.creator')
                 .exec(function(err, article){
                     if(err) return next(err);
+                    article.averageRating = article.getAverageRating();
                     res.render('articles/fullArticle', {
                         article: article
                     });
@@ -193,10 +194,11 @@ router.post('/rate', function(req, res, next){
         }
         else{
             for(var i = 0, l = article.fans.length; i < l; i++){
-                if(req.body.rating == article.fans[i].fan){
+                if(req.user._id.toString() == article.fans[i].fan.toString()){
+                    console.log('works');
                     article.fans[i].star = req.body.rating;
                     article.save();
-                    return res.send({});
+                    return res.status(200).send({avRating: article.getAverageRating()});
                 }
             }
             article.fans.push({
@@ -204,7 +206,7 @@ router.post('/rate', function(req, res, next){
                 fan: req.user._id
             });
             article.save();
-            res.status(200).send({});
+            res.status(200).send({avRating: article.getAverageRating()});
         }
     });
 });
