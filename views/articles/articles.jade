@@ -20,7 +20,7 @@ block content
                                 if( item.content)
                                     if(item.content.length > 100)
                                         p=item.content.substring(1, 80)
-                                            a(href="#") ...Read more
+                                            a(href= "/articles/?title=" + item.title) ...Read more
                                     else
                                         p=item.content
                                 if(authorRequest)
