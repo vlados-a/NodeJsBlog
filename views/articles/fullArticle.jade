@@ -30,11 +30,11 @@ block content
                   span.badge(id = "commentsCount")=article.comments.length
                 div.collapse(id="commentsBlock")
                   ul.list-group
-                  each comment in article.comments
-                    li.list-group-item
-                      p
-                        a(href="/users?username=" + comment.creator.username)=comment.creator.username + ' :'
-                      p=comment.text
+                      each comment in article.comments
+                        li.list-group-item
+                          p
+                            a(href="/users?username=" + comment.creator.username)=comment.creator.username + ' :'
+                          p=comment.text
                   if(user)
                     form(method='Post' id="commentsForm" action = "/articles/addComment?title=" + article.title)
                       div.form-group

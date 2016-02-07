@@ -41,7 +41,10 @@ Article.methods.getAverageRating = function(){
         avRating += e.star;
     });
     avRating /= this.fans.length;
-    return avRating;
+    if(Number.isNaN(avRating)) return 0;
+    var res = new Number(avRating);
+    res = res.toPrecision(3);
+    return res;
 }
 
 module.exports = mongoose.model('Article', Article);

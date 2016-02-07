@@ -39,7 +39,7 @@ router.post('/',function(req,res,next){
     .exec(function(err, articles){
         if(err) return next(err);
         if(req.body.author === ''){
-            res.render("articles",{
+            res.render("articles/articles",{
                 articles: articles
             });
         }

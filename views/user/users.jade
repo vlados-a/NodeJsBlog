@@ -9,7 +9,8 @@ block content
                 div.list-group
                     each item in users
                         div.list-group-item
-                            h1=item.username
+                            h1
+                                a(href="/users?username=" + item.username)=item.username
                             if( item.lastname &&  item.firstname)
                                 p='Name: ' + item.firstname + ' ' +item.lastname
                             if(item.birthdate)
