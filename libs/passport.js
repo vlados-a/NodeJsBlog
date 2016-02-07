@@ -18,10 +18,9 @@ passport.use(new FacebookStrategy(
         callbackURL: config.get('social:facebook:callbackURL')
     },
     function(accessToken, refreashToken, profile, done){
-        process.nextTick(function(){
-            return done(null, profile);
-        });
-    }));
+        User.findOrCreate({username: profile.displayName}, done);
+    }
+));
 passport.use(new VkontakteStrategy(
     {
         clientID: config.get('social:vk:clientId'),
@@ -29,12 +28,8 @@ passport.use(new VkontakteStrategy(
         callbackURL: config.get('social:vk:callbackURL')
     },
     function(accessToken, refreashToken, profile, done){
-        // User.create({username: profile.displayName}, function(err,user){
-        //     console.log(user);
-        //     console.log(user.done);
-        //     done(err,user);
-        // })
         User.findOrCreate({username: profile.displayName}, done);
-    }));
+    }
+));
 
 module.exports = passport;

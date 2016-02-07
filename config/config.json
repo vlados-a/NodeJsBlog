@@ -1,34 +1,34 @@
 {
-	"port": 3000,
-	"session": {
-		"secret": "vlados",
-		"key": "sid",
-		"cookie":{
-			"path":"/",
-			"httponly":true,
-			"maxAge":null
-		}
-	},
-	"mongoose": {
-		"uri": "mongodb://localhost/blog",
-		"options": {
-			"server": {
-				"socketoptions":{
-					"keepAlive": 1
-				}
-			}
-		}
-	},
-	"social":{
-		"facebook":{
-			"clientId": "154334694941927",
-			"clientSecret": "778cfed5e972079a5f072201264583bc",
-			"callbackURL": "http://127.0.0.1:5000/auth/facebook/callback"
-		},
-		"vk":{
-			"clientId":"5233315",
-			"clientSecret":"Va2ZcFGZFbVtbSbd4fOF",
-			"callbackURL":"http://127.0.0.1:3000/auth/vk/callback"
-		}
-	}
+  "port": 3000,
+  "session": {
+    "secret": "vlados",
+    "key": "sid",
+    "cookie":{
+      "path":"/",
+      "httponly":true,
+      "maxAge":null
+    }
+  },
+  "mongoose": {
+    "uri": "mongodb://heroku_7g9h2d4m:h8fq4av902gmavdg83djeoabu9@ds059205.mongolab.com:59205/heroku_7g9h2d4m",
+    "options": {
+      "server": {
+        "socketoptions":{
+          "keepAlive": 1
+        }
+      }
+    }
+  },
+  "social":{
+    "facebook":{
+      "clientId": "1021460364592156",
+      "clientSecret": "b76bfa4e53d4bbd4d8f54acbfdab33d3",
+      "callbackURL": "https://uladazarkablog.herokuapp.com/auth/facebook/callback"
+    },
+    "vk":{
+      "clientId":"5279578",
+      "clientSecret":"gTlr51xnYyfyevm9JHnh",
+      "callbackURL":"https://uladazarkablog.herokuapp.com/auth/vk/callback"
+    }
+  }
 }
