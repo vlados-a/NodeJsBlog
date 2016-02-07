@@ -11,9 +11,11 @@ router.get('/',function(req,res,next){
     var query = url.parse(req.url, true).query;
     if(query.title){
         Article.findOne({title: query.title})
+                .populate('creator')
                 .populate('comments.creator')
                 .exec(function(err, article){
                     if(err) return next(err);
+                    console.log(article);
                     article.averageRating = article.getAverageRating();
                     res.render('articles/fullArticle', {
                         article: article
@@ -195,7 +197,6 @@ router.post('/rate', function(req, res, next){
         else{
             for(var i = 0, l = article.fans.length; i < l; i++){
                 if(req.user._id.toString() == article.fans[i].fan.toString()){
-                    console.log('works');
                     article.fans[i].star = req.body.rating;
                     article.save();
                     return res.status(200).send({avRating: article.getAverageRating()});
