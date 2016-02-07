@@ -24,7 +24,7 @@ block content
                         option(value="5") 5
               div.comments
                 button.btn.btn-primary(data-toggle="collapse" data-target="#commentsBlock" ) Comments
-                  span.badge=article.comments.length
+                  span.badge(id = "commentsCount")=article.comments.length
                 div.collapse(id="commentsBlock")
                   ul.list-group
                   each comment in article.comments
@@ -38,4 +38,3 @@ block content
                         textarea.form-control(placeholder="Type your comment here" name="commentText")
                       div.form-group
                         input.btn.btn-primary(type="submit")
-

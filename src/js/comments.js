@@ -13,9 +13,10 @@ module.exports = function(commentsContainer, commentsForm, $){
                 $creator = $('<a></a>').text(author + ' :'),
                 $text = $('<p></p>').text(text);
             $item.append($creator).append($text);
-            console.log($item);
             var list = $container.find('ul.list-group');
             $container.find('ul.list-group').append($item);
+            var count = $('#commentsCount').text();
+            $('#commentsCount').html(++count);
         }
         $form.submit(function(e){
             e.preventDefault();
@@ -30,7 +31,7 @@ module.exports = function(commentsContainer, commentsForm, $){
         var socket = io('', {
             reconnect: true
         });
-        sockeet.on('connect', function(){
+        socket.on('connect', function(){
             socketConnected = true;
         });
         socket.on('error', function(){
