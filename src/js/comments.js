@@ -37,7 +37,6 @@ module.exports = function(commentsContainer, commentsForm, $){
             socketConnected = false;
         });
         socket.on('comment', function(data){
-            console.log('new coment!!');
             addComment(data.text, data.creator.username);
         });
     }

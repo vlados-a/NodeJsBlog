@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Article = require('../models/article'),
+    User = require('../models/user'),
     HttpError = require('../libs/errors').HttpError,
     async = require('async'),
     commentsEmmiter = require('../libs/commentsEmmiter'),
@@ -69,9 +70,19 @@ router.post('/addComment', function(req, res, next){
                 };
                 article.comments.push(comment);
                 article.save();
-                if(req.xhr) res.status(200).send(comment);
-                else res.redirect('/articles?title='+query.title);
-                commentsEmmiter.emit('comment', comment);
+                User.findOne({_id: comment.creator}, function(err, user){
+                    if(err){
+                        if(req.xhr) return res.status(500).send({});
+                        else return next(err);
+                    }
+                    comment.creator = {
+                        id:user._id,
+                        username:user.username
+                    };
+                    if(req.xhr) res.status(200).send(comment);
+                    else res.redirect('/articles?title='+query.title);
+                    commentsEmmiter.emit('comment', comment);
+                });
         });
     }
     else{
