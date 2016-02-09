@@ -100,4 +100,8 @@ var server = http.listen(config.get('port'), function(){
 var io = require('./socket')(server);
 app.set('io', io);
 
+process.on('exit', function(){
+  server.close();
+});
+
 module.exports = app;
